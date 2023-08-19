@@ -2,8 +2,10 @@ package com.example.springapp.Models;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "worker")
+import lombok.Data;
 
+@Document(collection = "worker")
+@Data
 public class Worker extends Person {
 
 	public String workStatus;
