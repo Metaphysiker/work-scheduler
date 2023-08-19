@@ -38,8 +38,8 @@ services:
       - "${PORT_BACKEND}:8080"
     env_file:
       - .env
-    profiles:
-      - development
+    volumes:
+    - ./spring-app/src:/app/src
     depends_on:
       - mongodb
 
