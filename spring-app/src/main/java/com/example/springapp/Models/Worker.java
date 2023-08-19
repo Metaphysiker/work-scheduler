@@ -10,7 +10,6 @@ public class Worker extends Person {
 
 	public Worker(String firstName, String lastName, String email) {
 		super(firstName, lastName, email);
-		// TODO Auto-generated constructor stub
 		this.workStatus = "swag";
 	}
 
