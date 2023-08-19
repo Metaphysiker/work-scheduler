@@ -1,0 +1,47 @@
+version: '3.8'
+services:
+  vue:
+    build:
+      context: ./vue-app
+      dockerfile: Dockerfile
+      target: development-stage
+      args:
+        VITE_API_BASE_URL: "${API_BASE_URL}"
+    image: metaphysiker/work-scheduler-vue:development
+    volumes:
+    - ./vue-app/src:/app/src
+    env_file:
+      - .env
+    ports:
+    - "${PORT_FRONTEND}:8080"
+    depends_on:
+      - mongodb
+  mongodb:
+    image: 'mongo'
+    volumes:
+     - mongodata:/data/db
+    env_file:
+      - .env
+  npm:
+    build: ./npm
+    image: metaphysiker/work-scheduler-npm:development
+    volumes:
+      - ./:/app
+    profiles:
+      - development
+    user: "${UID}:${GID}"
+  spring_app:
+    build:
+      context: ./spring-app
+      dockerfile: Dockerfile
+    ports:
+      - "${PORT_BACKEND}:8080"
+    env_file:
+      - .env
+    profiles:
+      - development
+    depends_on:
+      - mongodb
+
+volumes:
+  mongodata:
